@@ -134,6 +134,7 @@ function App() {
 
   function EnterOnKey(event) {
     if (event.key === "Enter") {
+      event.preventDefault();
       window.alert(field);
     }
   }
