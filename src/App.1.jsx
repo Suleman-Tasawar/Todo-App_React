@@ -1,15 +1,7 @@
-import "./App.css";
 import styled from "styled-components";
 import { useState } from "react";
-import { useRef } from "react";
 
-import { render } from "react-dom";
-import iconSun from "./assets/icon-sun.svg";
-import iconMoon from "./assets/icon-moon.svg";
-import iconCheck from "./assets/icon-check.svg";
-import iconCross from "./assets/icon-cross.svg";
-
-function App() {
+export function App() {
   /*Styling for all components present*/
   const H1 = styled.h1`
     font-size: 36px;
@@ -33,7 +25,7 @@ function App() {
   `;
   const InputText = styled.input`
     margin-left: 0.4rem;
-    width: 20%;
+    width: 300px;
     height: 38px;
     border: none;
     outline: none;
@@ -50,12 +42,12 @@ function App() {
   const TodoHolder = styled.div`
     position: absolute;
     top: -20%;
-    left: 20%;
-    width: 70%;
+    left: 25%;
+    width: 400px;
   `;
 
   const Main = styled.div`
-    width: 100%;
+    width: 500px;
     background-color: var(--verydarkdesaturatedblue);
     color: var(--lightgrayishblue);
     font-weight: 400;
@@ -71,7 +63,6 @@ function App() {
 
   const TodoInfo = styled.div`
     color: var(--darkgrayishblue);
-    font-size: 13px;
   `;
 
   const CheckBoxContainer = styled.label`
@@ -91,46 +82,40 @@ function App() {
     border: 1px solid var(--darkgrayishblue);
     border-radius: 50%;
   `;
-  /*
+
   const CheckBoxSelected = {
-    backgroundImg: url("./assets/icon-check.svg"),
-  };*/
+    backgroundImg: url("../images/icon-check.svg"),
+  };
 
   const InputCheckButtonLine = styled.div`
     border-bottom: 1px solid var(--darkgrayishblue);
   `;
 
   /*Styling*/
-
   /*Logic for the todo*/
-
   const [field, setField] = useState("");
+
   const [todo__arr, setTodoArr] = useState([]);
-  const [toggler, setToggler] = useState(iconSun);
-  const [activeCheck, setActiveCheck] = useState(false);
-  const inputRef = useRef(null);
+
+  const [check, setCheck] = useState({});
 
   let idCount = 0;
-
   //Render the array with checkbox styled with toda data each
-
   const renderTasks = () => {
     return todo__arr.map((todo) => (
       <InputCheckButtonLine className="flex__between" key={todo.id}>
         <div className="flex__center">
           <CustomCheckBox
-            className={activeCheck ? "check__box__selected" : ""}
+            style={check}
             onClick={selectCheckBox}
           ></CustomCheckBox>
-          <div className="margin__left__1">
+          <div>
             <TodoList>{todo.task}</TodoList>
           </div>
         </div>
 
         <div>
-          <ThemeButton className="margin__right__1">
-            <img src={iconCross} />
-          </ThemeButton>
+          <button>Delete</button>
         </div>
       </InputCheckButtonLine>
     ));
@@ -146,26 +131,18 @@ function App() {
       setTodoArr([...todo__arr, { task: field, complete: false, id: idCount }]);
       idCount++;
       setField("");
-      inputRef.current.focus();
-    }
-  }
-
-  function toggleTheme(icon) {
-    console.log("theme");
-    if (toggler === iconSun) {
-      setToggler(iconMoon);
-    } else {
-      setToggler(iconSun);
     }
   }
 
   function selectCheckBox() {
-    setActiveCheck(!activeCheck);
+    setCheck(CheckBoxSelected);
   }
   //Remainaing Work
+  //also add an id and a booloean to keep track of completed or not
+  //fix the checkbox with styling
+  //display lists in proper order checkbox+todo item+delete button
   //add functionality for completion and deletion
   //Make it responsive
-
   return (
     <>
       <div className="todo__header"></div>
@@ -178,15 +155,14 @@ function App() {
 
             <div>
               <ThemeButton>
-                <img onClick={toggleTheme} src={toggler} alt="Change Mode" />
+                <img src="../images/icon-sun.svg" alt="Change Mode" />
               </ThemeButton>
             </div>
           </div>
-          <InputContainer className="flex__center margin__left__1">
+          <InputContainer className="flex__center">
             <InputDecoration onClick={InsertTodoList}></InputDecoration>
 
             <InputText
-              ref={inputRef}
               key="random text"
               type="text"
               name="todo field"
@@ -217,5 +193,3 @@ function App() {
     </>
   );
 }
-
-export default App;

@@ -57,6 +57,21 @@ ul > li {
   margin-left: 1rem;
 }
 
+.margin__right__1 {
+  margin-right: 1rem;
+}
+
 .margin__top__1-5 {
   margin-top: 1.5rem;
+}
+
+.check__box__selected {
+  width: 25px;
+  height: 25px;
+  border: 1px solid var(--darkgrayishblue);
+  border-radius: 50%;
+  background-image: url("./assets/icon-check.svg"),
+    linear-gradient(to right, hsl(192, 100%, 67%), hsl(280, 87%, 65%));
+  background-repeat: no-repeat;
+  background-position: center;
 }
